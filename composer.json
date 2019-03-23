@@ -1,0 +1,10 @@
+{
+  "autoload": {
+    "psr-4": {
+      "UserFrosting\\Sprinkle\\Api\\": "src/"
+    }
+  },
+  "require": {
+    "webonyx/graphql-php": "^0.13.0"
+  }
+}
