@@ -1,7 +1,7 @@
 {
   "autoload": {
     "psr-4": {
-      "UserFrosting\\Sprinkle\\Api\\": "src/"
+      "UserFrosting\\Sprinkle\\GraphQl\\": "src/"
     }
   },
   "require": {

@@ -1,11 +1,11 @@
 <?php
 
-namespace UserFrosting\Sprinkle\Api\GraphQl;
+namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
 
 use GraphQL\Type\Definition\ObjectType;
 
-// use UserFrosting\Sprinkle\Api\GraphQl\Query;
-// use UserFrosting\Sprinkle\Api\GraphQl\Types\User;
+// use UserFrosting\Sprinkle\GraphQl\GraphQl\Query;
+// use UserFrosting\Sprinkle\GraphQl\GraphQl\Types\User;
 
 class TypeRegistry
 {

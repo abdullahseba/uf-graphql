@@ -6,7 +6,7 @@
  * @license
  */
 
-namespace UserFrosting\Sprinkle\Api\GraphQl\Resolver;
+namespace UserFrosting\Sprinkle\GraphQl\GraphQl\Resolver;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;

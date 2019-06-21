@@ -1,4 +1,4 @@
 <?php
 
-$app->post('/graphql', 'UserFrosting\Sprinkle\Api\GraphQl\Api:Api')
+$app->post('/graphql', 'UserFrosting\Sprinkle\GraphQl\GraphQl\Api:Api')
     ->setName('graphql');

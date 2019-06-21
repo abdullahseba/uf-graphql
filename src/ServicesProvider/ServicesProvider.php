@@ -1,8 +1,8 @@
 <?php
 
-namespace UserFrosting\Sprinkle\Api\ServicesProvider;
+namespace UserFrosting\Sprinkle\GraphQl\ServicesProvider;
 
-use UserFrosting\Sprinkle\Api\GraphQl\TypeRegistry;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry;
 
 class ServicesProvider
 {
