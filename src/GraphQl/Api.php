@@ -2,7 +2,7 @@
 
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
 
-ini_set('display_errors', 'on');
+// ini_set('display_errors', 'on');
 ini_set('log_errors', 'on');
 ini_set('display_startup_errors', 'on');
 ini_set('error_reporting', E_ALL);
@@ -16,6 +16,9 @@ use UserFrosting\Sprinkle\Core\Controller\SimpleController;
 use GraphQL\Language\Parser;
 use GraphQL\Utils\AST;
 use GraphQL\Type\Definition\ResolveInfo;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry as TR;
 
 class MyCustomResolver
 {
@@ -43,9 +46,28 @@ class Api extends SimpleController
         // Get submitted data.
         $params = $request->getParsedBody();
 
+        new TypeRegistry(
+            (object) array(
+                'query' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query',
+                'user' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\User'
+            )
+        );
+
+        Query::$fields['user'] = [
+            'type' => TR::get('user'),
+            'description' => 'Returns user by id (in range of 1-5)',
+            'args' => [
+                'id' => TR::nonNull(TR::id())
+            ],
+            'resolve' =>
+                "UserFrosting\Sprinkle\GraphQl\GraphQl\Resolver\UserResolver::resolve"
+        ];
+
+        // error_log(Query::$fields['fields']['description']);
         $schema = new Schema([
             // 'query' => Types::query()
-            'query' => $this->ci->graphQLTypeRegistry->query
+            // 'query' => $this->ci->graphQLTypeRegistry->query
+            'query' => TypeRegistry::get('query')
             // 'query' => $this->ci->graphQl->type->query,
             // 'query' => $this->ci->graphQl->addToQuery(),
             // 'query' => $this->ci->graphQl->type->query->addToQuery(),
@@ -81,7 +103,9 @@ class Api extends SimpleController
                 $schema,
                 $query,
                 $rootValue = null,
-                $context = null,
+                $context = [
+                    'current_user' => "testu"
+                ],
                 $variableValues = null,
                 $operationName = null
                 // new MyCustomResolver()

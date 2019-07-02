@@ -3,33 +3,43 @@
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
 
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
+
 
 // use UserFrosting\Sprinkle\GraphQl\GraphQl\Query;
 // use UserFrosting\Sprinkle\GraphQl\GraphQl\Types\User;
 
-class TypeRegistry
+class TypeRegistry extends Type
 {
-    public static $user;
-    public static $query;
+  
+    public static $registry;
     public static $types;
 
-    // public static function user()
-    // {
-    //     return self::$user ?: (self::$user = new Types\User());
-    // }
-
-    // public static function query()
-    // {
-    //     // file_put_contents(__DIR__.'\log.json', json_encode(AST::toArray($contents)));
-    //     return self::$query ?: (self::$query = new Types\Query());
-    // }
-    public function registerType($typeName, $typeClass)
+    public function __construct($registry)
     {
-        _self::$types[$typeName] = new $typeClass;
+        TypeRegistry::$registry = $registry;
+    }
+
+
+    public function registerType($type, $typeClass)
+    {
+        TypeRegistry::$registry->$type = $typeClass;
+        // error_log($typeName . " registered");
+    }
+
+    public static function get($type, $args = array())
+    {
+        try {
+        return TypeRegistry::$types->$type ?: (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type($args));
+        
+        } catch (\Throwable $th) {
+            //Error message required.
+            throw $th;
+        }
+
+        // return  (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type());
     }
 }
 
-TypeRegistry::$types = (object) array(
-    'user'=> new Type\User(),
-    'query' => new Type\Query()
-);
+TypeRegistry::$types = (object) array();
+TypeRegistry::$registry = (object) array();

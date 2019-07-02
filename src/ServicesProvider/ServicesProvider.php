@@ -18,6 +18,20 @@ class ServicesProvider
         //     return $types;
         // };
         $container['graphQLTypeRegistry'] = function ($c) {
+            error_log('registered');
+
+            // $reflection = new ReflectionClass('MyClass');
+            // var_dump($reflection->getMethods(ReflectionMethod::IS_STATIC));
+
+            $t = new TypeRegistry([
+                'query' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query',
+                'user' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\User'
+            ]);
+            //prettier-ignore
+            // $t->registerType('query', 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query');
+            //prettier-ignore
+            // $t->registerType('user', 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\User');
+
             return TypeRegistry::$types;
         };
         // $container['graphQl'] = function ($c) {

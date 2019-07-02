@@ -21,8 +21,10 @@ class UserResolver extends Resolver
     public static function resolve($source, $args, $context, $info)
     {
         // $user = UserModel::select('id', 'first_name')->where('id', $args['id'])->get()[0];
-        $user = UserModel::where('id', $args['id'])->get()->first();
-        
+        $user = UserModel::where('id', $args['id'])
+            ->get()
+            ->first();
+
         $fields = [
             'id' => $user->id,
             'userName' => $user->user_name,
@@ -35,8 +37,9 @@ class UserResolver extends Resolver
             'isEnabled' => $user->flag_enabled,
             'created' => $user->created_at,
             'lastUpdated' => $user->updated_at,
-            'deleted' => $user->deleted_at
+            'deleted' => $user->deleted_at,
+            'con' => $context['current_user']
         ];
-        return  $fields;
+        return $fields;
     }
 }

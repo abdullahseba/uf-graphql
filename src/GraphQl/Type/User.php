@@ -9,7 +9,7 @@
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl\Type;
 
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry as TR;
 
 /**
  * GraphQL User type definition.
@@ -17,27 +17,28 @@ use GraphQL\Type\Definition\Type;
  */
 class User extends ObjectType
 {
-  protected $user;
-  public function __construct()
-  {
-    $user = [
-      'name' => 'User',
-      'description' => 'User',
-      'fields' => [
-        'id' => Type::id(),
-        'userName' => Type::string(),
-        'firstName' => Type::string(),
-        'lastName' => Type::string(),
-        'email' => Type::string(),
-        'locale' => Type::string(),
-        'groupId' => Type::int(),
-        'isVerified' => Type::boolean(),
-        'isEnabled' => Type::boolean(),
-        'created' => Type::string(),
-        'lastUpdated' => Type::string(),
-        'deleted' => Type::string()
-      ]
-    ];
-    parent::__construct($user);
-  }
+    protected $user;
+    public function __construct()
+    {
+        $user = [
+            'name' => 'User',
+            'description' => 'User',
+            'fields' => [
+                'id' => TR::id(),
+                'userName' => TR::string(),
+                'firstName' => TR::string(),
+                'lastName' => TR::string(),
+                'email' => TR::string(),
+                'locale' => TR::string(),
+                'groupId' => TR::int(),
+                'isVerified' => TR::boolean(),
+                'isEnabled' => TR::boolean(),
+                'created' => TR::string(),
+                'lastUpdated' => TR::string(),
+                'deleted' => TR::string(),
+                'con' => TR::string()
+            ]
+        ];
+        parent::__construct($user);
+    }
 }
