@@ -10,7 +10,9 @@ namespace UserFrosting\Sprinkle\GraphQl\GraphQl\Resolver;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
+use UserFrosting\Sprinkle\GraphQl\Authenticate\Exception\AuthExpiredException;
 use UserFrosting\Sprinkle\Account\Database\Models\User as UserModel;
+use UserFrosting\Sprinkle\GraphQl\Controller\GraphQlController;
 
 /**
  * GraphQL User type definition.
@@ -20,6 +22,11 @@ class UserResolver extends Resolver
 {
     public static function resolve($source, $args, $context, $info)
     {
+        // $t = new GraphQlController();
+        if (!$context['auth']->check()) {
+            throw new AuthExpiredException();
+        }
+
         // $user = UserModel::select('id', 'first_name')->where('id', $args['id'])->get()[0];
         $user = UserModel::where('id', $args['id'])
             ->get()

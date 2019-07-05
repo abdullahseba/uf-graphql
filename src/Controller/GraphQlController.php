@@ -1,6 +1,6 @@
 <?php
 
-namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
+namespace UserFrosting\Sprinkle\GraphQl\Controller;
 
 // ini_set('display_errors', 'on');
 ini_set('log_errors', 'on');
@@ -39,29 +39,33 @@ class MyCustomResolver
     }
 }
 
-class Api extends SimpleController
+class GraphQlController extends SimpleController
 {
     public function Api($request, $response, $args)
     {
         // Get submitted data.
         $params = $request->getParsedBody();
 
-        new TypeRegistry(
-            (object) array(
-                'query' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query',
-                'user' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\User'
-            )
-        );
+        // new TypeRegistry(
+        //     (object) array(
+        //         'query' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query',
+        //         'user' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\User'
+        //     )
+        // );
 
-        Query::$fields['user'] = [
-            'type' => TR::get('user'),
-            'description' => 'Returns user by id (in range of 1-5)',
-            'args' => [
-                'id' => TR::nonNull(TR::id())
-            ],
-            'resolve' =>
-                "UserFrosting\Sprinkle\GraphQl\GraphQl\Resolver\UserResolver::resolve"
-        ];
+        TypeRegistry::$registry = $this->ci->graphQLTypeRegistry;
+
+        Query::$fields = $this->ci->graphQLQueryFields;
+
+        // Query::$fields['user'] = [
+        //     'type' => TR::get('user'),
+        //     'description' => 'Returns user by id (in range of 1-5)',
+        //     'args' => [
+        //         'id' => TR::nonNull(TR::id())
+        //     ],
+        //     'resolve' =>
+        //         "UserFrosting\Sprinkle\GraphQl\GraphQl\Resolver\UserResolver::resolve"
+        // ];
 
         // error_log(Query::$fields['fields']['description']);
         $schema = new Schema([
@@ -104,7 +108,8 @@ class Api extends SimpleController
                 $query,
                 $rootValue = null,
                 $context = [
-                    'current_user' => "testu"
+                    'current_user' => "testu",
+                    'auth' => $this->ci->authenticator
                 ],
                 $variableValues = null,
                 $operationName = null

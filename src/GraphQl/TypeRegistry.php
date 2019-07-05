@@ -15,10 +15,10 @@ class TypeRegistry extends Type
     public static $registry;
     public static $types;
 
-    public function __construct($registry)
-    {
-        TypeRegistry::$registry = $registry;
-    }
+    // public function __construct($registry)
+    // {
+    //     TypeRegistry::$registry = $registry;
+    // }
 
 
     public function registerType($type, $typeClass)
