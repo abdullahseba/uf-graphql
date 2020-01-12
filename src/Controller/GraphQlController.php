@@ -18,26 +18,27 @@ use GraphQL\Utils\AST;
 use GraphQL\Type\Definition\ResolveInfo;
 use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry;
 use UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query;
+use UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Mutation;
 use UserFrosting\Sprinkle\GraphQl\GraphQl\TypeRegistry as TR;
 
-class MyCustomResolver
-{
-    public function __invoke($source, $args, $context, ResolveInfo $info)
-    {
-        $fieldName = $info->fieldName;
-        $property = null;
-        // file_put_contents(__DIR__.'\log.json', json_encode($this->getFieldSelection()));
-        // var_dump($info->getFieldSelection());
-        switch ($info->fieldName) {
-            // case 'id':
-            // return 2;
-            case 'user':
-                return ['id' => 1];
-            default:
-                return 666;
-        }
-    }
-}
+// class MyCustomResolver
+// {
+//     public function __invoke($source, $args, $context, ResolveInfo $info)
+//     {
+//         $fieldName = $info->fieldName;
+//         $property = null;
+//         // file_put_contents(__DIR__.'\log.json', json_encode($this->getFieldSelection()));
+//         // var_dump($info->getFieldSelection());
+//         switch ($info->fieldName) {
+//             // case 'id':
+//             // return 2;
+//             case 'user':
+//                 return ['id' => 1];
+//             default:
+//                 return 666;
+//         }
+//     }
+// }
 
 class GraphQlController extends SimpleController
 {
@@ -56,6 +57,7 @@ class GraphQlController extends SimpleController
         TypeRegistry::$registry = $this->ci->graphQLTypeRegistry;
 
         Query::$fields = $this->ci->graphQLQueryFields;
+        Mutation::$fields = $this->ci->graphQLMutationFields;
 
         // Query::$fields['user'] = [
         //     'type' => TR::get('user'),
@@ -71,7 +73,8 @@ class GraphQlController extends SimpleController
         $schema = new Schema([
             // 'query' => Types::query()
             // 'query' => $this->ci->graphQLTypeRegistry->query
-            'query' => TypeRegistry::get('query')
+            'query' => TypeRegistry::get('query'),
+            'mutation' => TypeRegistry::get('mutation')
             // 'query' => $this->ci->graphQl->type->query,
             // 'query' => $this->ci->graphQl->addToQuery(),
             // 'query' => $this->ci->graphQl->type->query->addToQuery(),
