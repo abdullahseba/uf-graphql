@@ -8,18 +8,16 @@ use UserFrosting\Sprinkle\Account\Database\Models\User as UserModel;
 
 class Mutation extends ObjectType
 {
+    public static $fields;
+
     public function __construct()
     {
         parent::__construct(
             [
-                'name' => 'Mutation',
-                    'fields' => [
-                        
-                            ],
+            'name' => 'Mutation',
+                'fields' => self::$fields,
             ]
         );
     }
-    public function addField()
-    {
-    }
+    // public function addField(){}
 }
