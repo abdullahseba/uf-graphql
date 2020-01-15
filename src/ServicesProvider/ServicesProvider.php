@@ -14,6 +14,11 @@ class ServicesProvider
      */
     public function register($container)
     {
+        /**
+        *   Type Registry
+        *   
+        *   Stores all Gql types.  Extend to add more types.
+        */
         $container['graphQLTypeRegistry'] = function ($c) {
             return (object) array(
                 'query' => 'UserFrosting\Sprinkle\GraphQl\GraphQl\Type\Query',
@@ -21,10 +26,23 @@ class ServicesProvider
             );
         };
 
+        /**
+        *   Query Fields.
+        *   
+        *   Stores all fields for the 'query' type.  Extend to add fields.
+        *   Queries are used for reading data only.
+        */
         $container['graphQLQueryFields'] = function ($c) {
             $fields = [];
             return $fields;
         };
+
+        /**
+        *   Mutation Fields.
+        *   
+        *   Stores all fields for the 'mutation' type.  Extend to add fields.
+        *   Mutations are used for writing data.
+        */
         $container['graphQLMutationFields'] = function ($c) {
             $fields = [];
             return $fields;
