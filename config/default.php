@@ -1,10 +1,12 @@
 <?php
 return [
 
-'csrf' => [
-    'blacklist' => [
-        '^/graphql' => [
-            'POST'
+    'csrf' => [
+        'enabled' => false,
+        'blacklist' => [
+            '^/graphql' => [
+                'POST'
+            ]
         ]
     ]
-]];
+];

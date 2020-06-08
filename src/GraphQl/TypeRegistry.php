@@ -11,17 +11,15 @@ use GraphQL\Type\Definition\Type;
 
 class TypeRegistry extends Type
 {
-  
+
+    /** @var object Registry for all available GQL types. */
     public static $registry;
+    /** @var object Stores all instances of a GQL type. */
     public static $types;
 
-    // public function __construct($registry)
-    // {
-    //     TypeRegistry::$registry = $registry;
-    // }
 
 
-    public function registerType($type, $typeClass)
+    public static function registerType($type, $typeClass)
     {
         TypeRegistry::$registry->$type = $typeClass;
         // error_log($typeName . " registered");
@@ -30,8 +28,8 @@ class TypeRegistry extends Type
     public static function get($type, $args = array())
     {
         try {
-        return TypeRegistry::$types->$type ?: (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type($args));
-        
+            //Check if type already exists, and if not, start a new instance of it.
+            return isset(TypeRegistry::$types->$type) ?: (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type($args));
         } catch (\Throwable $th) {
             //Error message required.
             throw $th;
