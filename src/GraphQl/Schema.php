@@ -12,7 +12,9 @@ class Schema
 }
 
 Schema::$schema = new Sch([
-    // 'query' => Types::query()
-    'query' => TypeRegistry::get('query'),
-    'mutation' => TypeRegistry::get('mutation')
+    'query' => TypeRegistry::query(),
+    'mutation' => TypeRegistry::mutation()
+    // 'mutation' => TypeRegistry::get('mutation')
+    // 'query' => TypeRegistry::get('query'),
+
 ]);

@@ -2,19 +2,18 @@
 
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
 
-use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Throwable;
 
-// use UserFrosting\Sprinkle\GraphQl\GraphQl\Query;
-// use UserFrosting\Sprinkle\GraphQl\GraphQl\Types\User;
-
+/**
+ * Stores and register all  GraphQl types.
+ */
 class TypeRegistry extends Type
 {
 
     /** @var object Registry for all available GQL types. */
     public static $registry;
-    /** @var object Stores all instances of a GQL type. */
+
+    /** @var object Stores all instances of a GQL types. */
     public static $types;
 
 

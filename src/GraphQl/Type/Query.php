@@ -1,9 +1,8 @@
 <?php
+
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl\Type;
 
 use GraphQL\Type\Definition\ObjectType;
-
-use GraphQL\Type\Definition\ResolveInfo;
 
 class Query extends ObjectType
 {

@@ -1,5 +1,8 @@
 {
   "autoload": {
+    "files": [
+      "defines.php"
+    ],
     "psr-4": {
       "UserFrosting\\Sprinkle\\GraphQl\\": "src/"
     }

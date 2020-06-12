@@ -18,7 +18,6 @@ class GraphQlController extends SimpleController
         $query = $params['query'];
 
 
-
         try {
             $rootValue = [
                 'greetings' => function ($root, $args, $context) {

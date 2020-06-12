@@ -17,5 +17,4 @@ class Mutation extends ObjectType
             ]
         );
     }
-    // public function addField(){}
 }
