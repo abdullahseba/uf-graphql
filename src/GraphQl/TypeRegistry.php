@@ -4,7 +4,7 @@ namespace UserFrosting\Sprinkle\GraphQl\GraphQl;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-
+use Throwable;
 
 // use UserFrosting\Sprinkle\GraphQl\GraphQl\Query;
 // use UserFrosting\Sprinkle\GraphQl\GraphQl\Types\User;
@@ -18,26 +18,56 @@ class TypeRegistry extends Type
     public static $types;
 
 
-
-    public static function registerType($type, $typeClass)
-    {
-        TypeRegistry::$registry->$type = $typeClass;
-        // error_log($typeName . " registered");
-    }
-
-    public static function get($type, $args = array())
+    /**
+     * Finds a GraphQL type and initiates it if necessary. The instance is stored so that it can be reused.
+     * Replaces 'TypeRegistry::get()'.
+     * @param string $typeName 
+     * @param array $args 
+     * @return object Returns type object.
+     * @throws Throws an error if something goes wrong.
+     */
+    public static function __callStatic($typeName, $args)
     {
         try {
             //Check if type already exists, and if not, start a new instance of it.
-            return isset(TypeRegistry::$types->$type) ?: (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type($args));
+            return isset(TypeRegistry::$types->$typeName) ?: (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
         } catch (\Throwable $th) {
             //Error message required.
             throw $th;
         }
+    }
 
-        // return  (TypeRegistry::$types->$type = new TypeRegistry::$registry->$type());
+    /**
+     * Registers GraphQL types.
+     * @param string $typeName 
+     * @param mixed $typeClass 
+     * @return void 
+     */
+    public static function registerType($typeName, $typeClass)
+    {
+        TypeRegistry::$registry->$typeName = $typeClass;
+    }
+
+    /**
+     * Finds a GraphQL type and initiates it if necessary. The instance is stored so that it can be reused.
+     * @deprecated Replaced by PHP Magic Method '__callStatic'.
+     * @param string $typeName 
+     * @param array $args 
+     * @return object Returns type object.
+     * @throws Throws an error if something goes wrong.
+     */
+    public static function get($typeName, $args = array())
+    {
+        try {
+            //Check if type already exists, and if not, start a new instance of it.
+            return isset(TypeRegistry::$types->$typeName) ?: (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
+        } catch (\Throwable $th) {
+            //Error message required.
+            throw $th;
+        }
     }
 }
 
+//Initiate stores with an empty object.  Stops PHP warnings.
 TypeRegistry::$types = (object) array();
 TypeRegistry::$registry = (object) array();

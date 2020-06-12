@@ -39,7 +39,8 @@ class GraphQlController extends SimpleController
                 $rootValue = null,
                 $context = [
                     'current_user' => "testu",
-                    'auth' => $this->ci->authenticator
+                    'auth' => $this->ci->authenticator,
+                    'ci' => $this->ci
                 ],
                 $variableValues = null,
                 $operationName = null

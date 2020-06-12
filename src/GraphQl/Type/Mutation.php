@@ -1,10 +1,8 @@
 <?php
+
 namespace UserFrosting\Sprinkle\GraphQl\GraphQl\Type;
 
-// use UserFrosting\Sprinkle\GraphQl\GraphQl\Types;
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
-use UserFrosting\Sprinkle\Account\Database\Models\User as UserModel;
 
 class Mutation extends ObjectType
 {
@@ -14,7 +12,7 @@ class Mutation extends ObjectType
     {
         parent::__construct(
             [
-            'name' => 'Mutation',
+                'name' => 'Mutation',
                 'fields' => self::$fields,
             ]
         );
