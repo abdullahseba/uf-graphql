@@ -16,5 +16,4 @@ Schema::$schema = new Sch([
     'mutation' => TypeRegistry::mutation()
     // 'mutation' => TypeRegistry::get('mutation')
     // 'query' => TypeRegistry::get('query'),
-
 ]);

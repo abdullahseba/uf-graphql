@@ -29,8 +29,9 @@ class TypeRegistry extends Type
     {
         try {
             //Check if type already exists, and if not, start a new instance of it.
-            return isset(TypeRegistry::$types->$typeName) ?: (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
+            return isset(TypeRegistry::$types->$typeName) ? TypeRegistry::$types->$typeName : (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
         } catch (\Throwable $th) {
+            error_log("Failed to find type '$typeName'");
             //Error message required.
             throw $th;
         }
@@ -59,7 +60,7 @@ class TypeRegistry extends Type
     {
         try {
             //Check if type already exists, and if not, start a new instance of it.
-            return isset(TypeRegistry::$types->$typeName) ?: (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
+            return isset(TypeRegistry::$types->$typeName) ? TypeRegistry::$types->$typeName : (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
         } catch (\Throwable $th) {
             //Error message required.
             throw $th;
