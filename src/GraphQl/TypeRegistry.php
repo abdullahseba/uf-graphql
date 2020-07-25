@@ -28,7 +28,7 @@ class TypeRegistry extends Type
     public static function __callStatic($typeName, $args)
     {
         try {
-            //Check if type already exists, and if not, start a new instance of it.
+            //Check if type already exists, and if not, start a new instance of it and return it.
             return isset(TypeRegistry::$types->$typeName) ? TypeRegistry::$types->$typeName : (TypeRegistry::$types->$typeName = new TypeRegistry::$registry->$typeName($args));
         } catch (\Throwable $th) {
             error_log("Failed to find type '$typeName'");
